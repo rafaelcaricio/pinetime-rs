@@ -219,8 +219,6 @@ dependencies = [
 [[package]]
 name = "cst816s"
 version = "0.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "988624bfaeaa34565792f7badc33cd02e84ba51fff4bbc3cd76f59d4af5658e7"
 dependencies = [
  "cortex-m 0.6.2",
  "embedded-hal",
@@ -241,22 +239,6 @@ name = "cty"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7313c0d620d0cb4dbd9d019e461a4beb501071ff46ec0ab933efb4daa76d73e3"
-
-[[package]]
-name = "display-interface"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07dda8d2dfb92b17bff0395151e8fe7f266f0923c75383200c09bc7ef472f28f"
-
-[[package]]
-name = "display-interface-spi"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "63d2de9922255f2313ce64ffcf587c4380c7a54accc1ba0e02dbf8af16caacd4"
-dependencies = [
- "display-interface",
- "embedded-hal",
-]
 
 [[package]]
 name = "embedded-graphics"
@@ -416,7 +398,7 @@ dependencies = [
 
 [[package]]
 name = "lvgl-codegen"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "Inflector",
  "lazy_static",
@@ -428,7 +410,7 @@ dependencies = [
 
 [[package]]
 name = "lvgl-sys"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "bindgen",
  "cc",
@@ -644,11 +626,10 @@ checksum = "7fdf1b9db47230893d76faad238fd6097fd6d6a9245cd7a4d90dbd639536bbd2"
 
 [[package]]
 name = "st7789"
-version = "0.2.2"
-source = "git+https://github.com/tstellanova/st7789#b1fe2c7af1947a044f37665315ddb28d9845b3ec"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5ccc7b7e79f9e578e981bfab45b502b72ca02717a4356df0478228a6ff7c47c4"
 dependencies = [
- "display-interface",
- "display-interface-spi",
  "embedded-graphics",
  "embedded-hal",
  "heapless",
