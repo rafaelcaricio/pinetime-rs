@@ -4,13 +4,9 @@
 mod backlight;
 mod delay;
 
-// use nrf52832_hal::gpio::Level;
-// use nrf52832_hal::{self as p_hal, pac};
-// use p_hal::{delay::Delay, spim, twim};
-use nrf52832_hal as p_hal;
-use p_hal::gpio::{GpioExt, Level};
-use p_hal::nrf52832_pac as pac;
-use p_hal::{delay::Delay, rng::RngExt, spim, twim};
+use nrf52832_hal::gpio::Level;
+use nrf52832_hal::{self as p_hal, pac};
+use p_hal::{delay::Delay, spim, twim};
 
 use cortex_m_rt as rt;
 use cst816s::CST816S;
@@ -18,7 +14,6 @@ use cstr_core::CStr;
 use embedded_graphics::prelude::*;
 use embedded_hal::blocking::delay::{DelayMs, DelayUs};
 use embedded_hal::digital::v2::OutputPin;
-use nrf52832_hal::prelude::ClocksExt;
 use numtoa::NumToA;
 use rt::entry;
 use st7789::Orientation;
@@ -49,11 +44,9 @@ fn main() -> ! {
     // but we also need to switch to the external HF oscillator. This is
     // needed for Bluetooth to work.
 
-    //let _clocks = p_hal::clocks::Clocks::new(dp.CLOCK).enable_ext_hfosc();
-    let _clockit = dp.CLOCK.constrain().enable_ext_hfosc();
+    let _clocks = p_hal::clocks::Clocks::new(dp.CLOCK).enable_ext_hfosc();
 
-    //let gpio = p_hal::gpio::p0::Parts::new(dp.P0);
-    let gpio = dp.P0.split();
+    let gpio = p_hal::gpio::p0::Parts::new(dp.P0);
 
     // Set up SPI pins
     let spi_clk = gpio.p0_02.into_push_pull_output(Level::Low).degrade();

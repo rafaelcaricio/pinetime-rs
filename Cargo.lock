@@ -424,10 +424,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "nrf52-hal-common"
-version = "0.8.1"
+name = "nrf-hal-common"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03dcdf72cd52a1c4829905e08a90ad6f4dc0f9d15ecf1883cc74f098199aa873"
+checksum = "cc36b48f37fdeeb88821733f8049bfee490fa76376746760c83bc4faa850320b"
 dependencies = [
  "cast",
  "cortex-m",
@@ -441,24 +441,24 @@ dependencies = [
 
 [[package]]
 name = "nrf52832-hal"
-version = "0.8.1"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd4803f1d08e6a4c8726ae68b40cecf7c2ab05f49b1ce29af932d052cb61114c"
+checksum = "e9656eab0c535fb4429876525fb5db1604bceeed80cc91a7b91d7b683db4a3a0"
 dependencies = [
  "cast",
  "cortex-m",
  "embedded-hal",
  "nb",
- "nrf52-hal-common",
+ "nrf-hal-common",
  "nrf52832-pac",
  "void",
 ]
 
 [[package]]
 name = "nrf52832-pac"
-version = "0.8.0"
+version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c4545414415bddd872f13c0a5418ecc380e34347a52cb048cfed38c1b0957fa"
+checksum = "72920484274fae0792a40345049da2723612465c7202561b6a17ad3c127259db"
 dependencies = [
  "bare-metal",
  "cortex-m",
@@ -546,9 +546,9 @@ checksum = "e2a38df5b15c8d5c7e8654189744d8e396bddc18ad48041a500ce52d6948941f"
 
 [[package]]
 name = "rand_core"
-version = "0.4.2"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9c33a3c44ca05fa6f1807d8e6743f3824e8509beca625669633be0acbdf509dc"
+checksum = "90bde5296fc891b0cef12a6d03ddccc162ce7b2aff54160af9338f8d40df6d19"
 
 [[package]]
 name = "regex"

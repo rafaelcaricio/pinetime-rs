@@ -10,8 +10,7 @@ cortex-m = "0.6"
 cortex-m-rt = "0.6"
 embedded-graphics = "0.6"
 embedded-hal = {version ="0.2.3", features = ["unproven"] }
-#nrf52832-hal = { version = "0.10", default-features = false, features = ["xxAA-package", "rt"] }
-nrf52832-hal = {version = "0.8.1", default-features = false, features = ["xxAA-package", "rt"]}
+nrf52832-hal = { version = "0.10", default-features = false, features = ["xxAA-package", "rt"] }
 st7789 = { version = "0.2", features = ["graphics", "batch", "buffer"], default-features = false }
 cstr_core = "0.2.0"
 numtoa = "0.2.3"
