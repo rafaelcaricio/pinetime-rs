@@ -14,11 +14,15 @@ use p_hal::{delay::Delay, rng::RngExt, spim, twim};
 
 use cortex_m_rt as rt;
 use cst816s::CST816S;
+use cstr_core::CStr;
 use embedded_graphics::prelude::*;
+use embedded_hal::blocking::delay::{DelayMs, DelayUs};
+use embedded_hal::digital::v2::OutputPin;
+use nrf52832_hal::prelude::ClocksExt;
+use numtoa::NumToA;
 use rt::entry;
 use st7789::Orientation;
 
-use cstr_core::CStr;
 use lvgl::input_device::{InputData, Pointer};
 use lvgl::style::Style;
 use lvgl::widgets::{Btn, Label};
@@ -26,16 +30,6 @@ use lvgl::{self, Align, Color, Part, State, Widget, UI};
 
 use core::panic::PanicInfo;
 use core::time::Duration;
-use embedded_hal::blocking::delay::{DelayMs, DelayUs};
-use embedded_hal::digital::v2::OutputPin;
-use nrf52832_hal::prelude::ClocksExt;
-use numtoa::NumToA;
-
-pub type HalSpimError = p_hal::spim::Error;
-
-pub type Spim0PortType = p_hal::spim::Spim<pac::SPIM0>;
-pub type DisplaySckPinType = p_hal::gpio::p0::P0_18<p_hal::gpio::Output<p_hal::gpio::PushPull>>;
-pub type DisplayMosiPinType = p_hal::gpio::p0::P0_26<p_hal::gpio::Output<p_hal::gpio::PushPull>>;
 
 ///
 /// This example was written and tested for the PineTime smart watch
@@ -49,7 +43,7 @@ fn main() -> ! {
     // Optimize clock config
     let dp = pac::Peripherals::take().unwrap();
 
-    let mut lcd_delay = delay::TimerDelay::new(dp.TIMER0);
+    let lcd_delay = delay::TimerDelay::new(dp.TIMER0);
 
     // Set up clocks. On reset, the high frequency clock is already used,
     // but we also need to switch to the external HF oscillator. This is
@@ -117,7 +111,6 @@ fn main() -> ! {
         spim::MODE_3,
         0,
     );
-    let spi_bus0 = shared_bus::CortexMBusManager::new(spi);
 
     // Chip select must be held low while driving the display. It must be high
     // when using other SPI devices on the same bus (such as external flash
@@ -127,7 +120,7 @@ fn main() -> ! {
 
     // Initialize LCD
     let mut lcd = st7789::ST7789::new(
-        spi_bus0.acquire(),
+        spi,
         lcd_dc,
         lcd_rst,
         lvgl::HOR_RES_MAX as u16,

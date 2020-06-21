@@ -21,12 +21,6 @@ dependencies = [
 
 [[package]]
 name = "aligned"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d39da9b88ae1a81c03c9c082b8db83f1d0e93914126041962af61034ab44c4a5"
-
-[[package]]
-name = "aligned"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eb1ce8b3382016136ab1d31a1b5ce807144f8b7eb2d5f16b2108f0f07edceb94"
@@ -174,23 +168,11 @@ dependencies = [
 
 [[package]]
 name = "cortex-m"
-version = "0.5.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c0b159a1e8306949579de3698c841dba58058197b65c60807194e4fa1e7a554"
-dependencies = [
- "aligned 0.2.0",
- "bare-metal",
- "cortex-m 0.6.2",
- "volatile-register",
-]
-
-[[package]]
-name = "cortex-m"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2954942fbbdd49996704e6f048ce57567c3e1a4e2dc59b41ae9fde06a01fc763"
 dependencies = [
- "aligned 0.3.2",
+ "aligned",
  "bare-metal",
  "volatile-register",
 ]
@@ -222,7 +204,7 @@ version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "988624bfaeaa34565792f7badc33cd02e84ba51fff4bbc3cd76f59d4af5658e7"
 dependencies = [
- "cortex-m 0.6.2",
+ "cortex-m",
  "embedded-hal",
 ]
 
@@ -448,7 +430,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "03dcdf72cd52a1c4829905e08a90ad6f4dc0f9d15ecf1883cc74f098199aa873"
 dependencies = [
  "cast",
- "cortex-m 0.6.2",
+ "cortex-m",
  "embedded-hal",
  "fpa",
  "nb",
@@ -464,7 +446,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd4803f1d08e6a4c8726ae68b40cecf7c2ab05f49b1ce29af932d052cb61114c"
 dependencies = [
  "cast",
- "cortex-m 0.6.2",
+ "cortex-m",
  "embedded-hal",
  "nb",
  "nrf52-hal-common",
@@ -479,7 +461,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3c4545414415bddd872f13c0a5418ecc380e34347a52cb048cfed38c1b0957fa"
 dependencies = [
  "bare-metal",
- "cortex-m 0.6.2",
+ "cortex-m",
  "cortex-m-rt",
  "vcell",
 ]
@@ -520,7 +502,7 @@ checksum = "19b17cddbe7ec3f8bc800887bab5e717348c95ea2ca0b1bf0837fb964dc67099"
 name = "pinetime-rs"
 version = "0.1.0"
 dependencies = [
- "cortex-m 0.6.2",
+ "cortex-m",
  "cortex-m-rt",
  "cst816s",
  "cstr_core",
@@ -529,7 +511,6 @@ dependencies = [
  "lvgl",
  "nrf52832-hal",
  "numtoa",
- "shared-bus",
  "st7789",
 ]
 
@@ -616,16 +597,6 @@ name = "semver-parser"
 version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
-
-[[package]]
-name = "shared-bus"
-version = "0.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed792a53f339088822c0cc9d6ebfb950752016a288dc96ed3e302e9592f18ab0"
-dependencies = [
- "cortex-m 0.5.10",
- "embedded-hal",
-]
 
 [[package]]
 name = "shlex"
