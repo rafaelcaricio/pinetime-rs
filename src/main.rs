@@ -3,7 +3,6 @@
 
 mod backlight;
 mod delay;
-mod monotonic_nrf52;
 
 // use nrf52832_hal::gpio::Level;
 // use nrf52832_hal::{self as p_hal, pac};
@@ -25,12 +24,12 @@ use lvgl::style::Style;
 use lvgl::widgets::{Btn, Label};
 use lvgl::{self, Align, Color, Part, State, Widget, UI};
 
-use crate::monotonic_nrf52::Instant;
 use core::panic::PanicInfo;
 use core::time::Duration;
 use embedded_hal::blocking::delay::{DelayMs, DelayUs};
 use embedded_hal::digital::v2::OutputPin;
 use nrf52832_hal::prelude::ClocksExt;
+use numtoa::NumToA;
 
 pub type HalSpimError = p_hal::spim::Error;
 
@@ -190,32 +189,22 @@ fn main() -> ! {
         })
         .unwrap();
 
-    let mut loop_start = Instant::now();
     loop {
-        ui.task_handler();
         if let Some(evt) = touchpad.read_one_touch_event(true) {
             latest_touch_point = Point::new(evt.x, evt.y);
             // Pressed
             latest_touch_status = InputData::Touch(latest_touch_point.clone())
                 .pressed()
                 .once();
-
-            time_lbl
-                .set_text(CStr::from_bytes_with_nul("PRESSED\0".as_bytes()).unwrap())
-                .unwrap();
-            time_lbl
-                .set_align(&mut button, Align::OutTopMid, 0, -50)
-                .unwrap();
         } else {
             // Released
             latest_touch_status = InputData::Touch(latest_touch_point.clone())
                 .released()
                 .once();
+            delay_source.delay_us(1u32);
         }
-
-        ui.tick_inc(Duration::from_millis(100));
-        //delay_source.delay_ms(2u32);
-        loop_start = Instant::now();
+        ui.task_handler();
+        ui.tick_inc(Duration::from_secs(1));
     }
 }
 

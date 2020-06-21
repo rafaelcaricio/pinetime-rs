@@ -219,6 +219,8 @@ dependencies = [
 [[package]]
 name = "cst816s"
 version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "988624bfaeaa34565792f7badc33cd02e84ba51fff4bbc3cd76f59d4af5658e7"
 dependencies = [
  "cortex-m 0.6.2",
  "embedded-hal",
@@ -503,6 +505,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "numtoa"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e521b6adefa0b2c1fa5d2abdf9a5216288686fe6146249215d884c0e5ab320b0"
+
+[[package]]
 name = "peeking_take_while"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -520,6 +528,7 @@ dependencies = [
  "embedded-hal",
  "lvgl",
  "nrf52832-hal",
+ "numtoa",
  "shared-bus",
  "st7789",
 ]
