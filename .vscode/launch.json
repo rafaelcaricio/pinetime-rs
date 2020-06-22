@@ -1,0 +1,114 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PineTime Debug",
+            "device": "nRF52832",
+            "svdFile": ".vscode/nrf52.svd",
+            "cwd": "${workspaceRoot}",
+            "configFiles": [ 
+                //  Tell OpenOCD to open the ST Link connection.
+                "scripts/swd-stlink.ocd",
+                //  Tell OpenOCD to run our custom debug commands.
+                "scripts/debug.ocd"
+            ],
+            "executable": "./target/thumbv7em-none-eabihf/debug/pinetime-rs",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "preLaunchCommands": [
+                //  Before loading the Application, run these gdb commands.
+                //  Set timeout for executing openocd commands.
+                "set remotetimeout 60",
+
+                //  This indicates that an unrecognized breakpoint location should automatically result in a pending breakpoint being created.
+                "set breakpoint pending on",
+            
+                //  Display the Arm instruction when hitting breakpoint.
+                //  "display/i $pc",
+
+                //  Load Bootloader symbols in case we jump to the Bootloader.
+                //  "symbol-file bin/targets/bluepill_boot/app/apps/boot/boot.elf",
+
+                //  Restore Application symbols.
+                //  "symbol-file bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
+                "monitor arm semihosting enable"
+            ],
+            "postLaunchCommands": [
+                //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
+                //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
+                //  "stepi",                    //  Must step before setting PC
+                //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
+                //  "stepi",                    //  Execute the Reset Handler
+                //"break main",                   //  Break at main()
+                "break __assert_func",          //  Break for any assert failures
+                "break os_default_irq",         //  Break for any unhandled interrupts
+                "break HardFault",
+                "break rust_begin_unwind"
+            ]
+        },
+        {
+            "name": "PineTime Debug Release",
+            "device": "nRF52832",
+            "svdFile": ".vscode/nrf52.svd",
+            "cwd": "${workspaceRoot}",
+            "configFiles": [ 
+                //  Tell OpenOCD to open the ST Link connection.
+                "scripts/swd-stlink.ocd",
+                //  Tell OpenOCD to run our custom debug commands.
+                "scripts/debug.ocd"
+            ],
+            "executable": "./target/thumbv7em-none-eabihf/release/pinetime-rs",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            // "swoConfig": {
+            //     "enabled": true,
+            //     "cpuFrequency": 16000000,
+            //     "swoFrequency": 2000000,
+            //     "source": "probe",
+            //     "decoders": [
+            //         {
+            //             "type": "console",
+            //             "label": "ITM",
+            //             "port": 0
+            //         }
+            //     ]
+            // },
+            "preLaunchCommands": [
+                //  Before loading the Application, run these gdb commands.
+                //  Set timeout for executing openocd commands.
+                "set remotetimeout 60",
+
+                //  This indicates that an unrecognized breakpoint location should automatically result in a pending breakpoint being created.
+                "set breakpoint pending on",
+            
+                //  Display the Arm instruction when hitting breakpoint.
+                //  "display/i $pc",
+
+                //  Load Bootloader symbols in case we jump to the Bootloader.
+                //  "symbol-file bin/targets/bluepill_boot/app/apps/boot/boot.elf",
+
+                //  Restore Application symbols.
+                //  "symbol-file bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
+                "set print asm-demangle on",
+                //"monitor semihosting ioclient 3",
+                "monitor arm semihosting enable"
+            ],
+            "postLaunchCommands": [
+                //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
+                //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
+                //  "stepi",                    //  Must step before setting PC
+                //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
+                //  "stepi",                    //  Execute the Reset Handler
+                //"break main",                   //  Break at main()
+                "break __assert_func",          //  Break for any assert failures
+                "break os_default_irq",         //  Break for any unhandled interrupts
+                "break HardFault"
+            ]
+        }
+    ]
+}

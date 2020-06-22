@@ -4,9 +4,7 @@
 //! default also wants SYST for its Delay implementation.
 
 use embedded_hal::blocking::delay::DelayUs;
-use hal::nrf52832_pac as pac;
-use nrf52832_hal::prelude::TimerExt;
-use nrf52832_hal::{self as hal, timer::Timer};
+use nrf52832_hal::{self as hal, pac, timer::Timer};
 
 pub struct TimerDelay {
     timer: hal::Timer<pac::TIMER0>,
@@ -15,8 +13,7 @@ pub struct TimerDelay {
 impl TimerDelay {
     pub fn new(timer0: pac::TIMER0) -> Self {
         Self {
-            //timer: Timer::new(timer0),
-            timer: timer0.constrain(),
+            timer: Timer::new(timer0),
         }
     }
 }

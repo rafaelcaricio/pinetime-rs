@@ -1,0 +1,41 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "cargo release",
+			"type": "shell",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"command": "cargo",
+			"args": [
+				"build",
+				"--release",
+				"-Zfeatures=build_dep"
+			]
+		},
+		{
+			"label": "flash release",
+			"type": "shell",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"command": "cargo",
+			"args": [
+				"embed",
+				"--release"
+			]
+		},
+		{
+			"label": "flash debug",
+			"type": "shell",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"command": "cargo",
+			"args": [
+				"embed"
+			]
+		}
+	]
+}
